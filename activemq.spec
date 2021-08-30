@@ -1,7 +1,7 @@
 %define check_testcase 0
 Name:                activemq
 Version:             5.15.15
-Release:             1
+Release:             2
 Summary:             Open source messaging and Integration Patterns server
 License:             ASL 2.0
 URL:                 http://activemq.apache.org
@@ -35,6 +35,8 @@ install -d -m755 %{buildroot}/%{_datadir}/activemq
 cd assembly/target
 unzip -d ./file apache-activemq*.zip
 cd ./file/apache-activemq*
+rm -rf bin/win* bin/*.bat
+chmod 755 bin/%{name}
 for dir in bin examples webapps webapps-demo conf lib docs;do
 	if [ "$dir" = "docs" || "$dir" = "examples" ]
 	then 
@@ -58,5 +60,8 @@ cd %{_builddir}
 %{_datadir}/javadoc
 
 %changelog
+* Sat Aug 28 2021 lingsheng <lingsheng@huawei.com> - 5.15.15-2
+- Fix activemq permission and remove windows related files
+
 * Mon Jul 19 2021 xuping <xuping33@huawei.com> - 5.15.15-1
 - package init
